@@ -1,6 +1,6 @@
 {
   "name": "winston-dev-format",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A pretty log formatter for Winston",
   "main": "index.js",
   "scripts": {
