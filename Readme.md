@@ -15,7 +15,7 @@ Make your life easier during development by logging in a format that's easier to
 
 ```js
 const { createLogger, format, transports } = require("winston");
-const devFormat = require(".");
+const devFormat = require("winston-dev-format");
 
 // set up the logger however you like
 const isProduction = process.env.NODE_ENV === "production";
