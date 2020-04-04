@@ -1,5 +1,7 @@
 .idea
+.eslintcache
 coverage
 node_modules
 
+# temporary file generated for docs screenshot
 example.js

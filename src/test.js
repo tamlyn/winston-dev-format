@@ -32,7 +32,7 @@ describe("Winston dev format", () => {
     logger.info("hello", { some: "data" });
     expect(mockTransport.msg).toMatchInlineSnapshot(`
       "info: hello
-        [90msome[39m:               \\"data\\""
+        [90msome: [39m              \\"data\\""
     `);
   });
 

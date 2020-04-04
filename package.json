@@ -4,7 +4,8 @@
   "description": "A pretty log formatter for Winston",
   "main": "src/format.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint --fix src/ tools/"
   },
   "dependencies": {
     "chalk": "^3.0.0",
@@ -15,10 +16,23 @@
     "winston": ">=3"
   },
   "devDependencies": {
+    "eslint": "^6.8.0",
+    "husky": "^4.2.3",
     "jest": "^25.2.3",
+    "lint-staged": "^10.1.1",
     "prettier": "^2.0.2",
     "stacktrace-metadata": "^2.0.4",
     "winston": "^3.2.1"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write",
+    "*.js": "eslint . --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
   },
   "keywords": [
     "winston",
@@ -31,7 +45,7 @@
     "pretty"
   ],
   "engines": {
-    "node": ""
+    "node": ">=8.6"
   },
   "author": "Tamlyn Rhodes",
   "license": "MIT"

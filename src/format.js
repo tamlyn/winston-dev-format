@@ -45,9 +45,9 @@ DevFormat.prototype.formatKey = function (key) {
   const escapedKey = JSON.stringify(key);
   const trimmedKey = escapedKey.substring(1, escapedKey.length - 1);
   const colorCodeWidth = chalk.level ? 10 : 0;
-  return chalk.gray(`${trimmedKey}: `).padEnd(
-    this.config.padding + colorCodeWidth,
-  );
+  return chalk
+    .gray(`${trimmedKey}: `)
+    .padEnd(this.config.padding + colorCodeWidth);
 };
 
 DevFormat.prototype.formatValue = function (value) {
