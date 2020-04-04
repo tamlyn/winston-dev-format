@@ -4,7 +4,7 @@
 
 Pretty log output for local development.
 
-![Logger terminal output](https://github.com/tamlyn/winston-dev-format/blob/master/screenshot.png)
+![Logger terminal output](https://github.com/tamlyn/winston-dev-format/raw/master/screenshot.png)
 
 ## Why
 
