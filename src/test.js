@@ -3,7 +3,7 @@ const chalk = require("chalk");
 const winston = require("winston");
 const Transport = require("winston-transport");
 
-const format = require(".");
+const format = require("./format");
 
 class MockTransport extends Transport {
   log(info, cb) {

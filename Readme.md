@@ -4,9 +4,11 @@
 
 Pretty log output for local development.
 
+![Logger terminal output](./screenshot.png)
+
 ## Why
 
-In production you should probably be logging JSON as it makes it easier 
+In production you should probably be logging JSON as it makes it easier
 to log complex objects and filter and search them later. But JSON is hard to read.
 
 Make your life easier during development by logging in a format that's easier to read.
@@ -27,17 +29,17 @@ const logger = createLogger({
 });
 
 // get logging
-logger.error("Unexpected item in the logging area");
-logger.warn("Some thing", { err: new Error("oh no") });
-logger.info("More things", {
-  with: { a: new Date(), or: 2e-10 },
-  "and then": "line\nbreak",
+logger.info("Some things", {
+  timestamp: new Date(),
+  nested: { some: { complex: "object", with: [1, "array"] } },
+  "and then": "a\nmulti\nline\nstring",
   func: function hello() {},
 });
+logger.warn("It is pitch black. You are likely to be eaten by a grue.");
+logger.error("Unexpected monkeys", { result: new Error("HTTP 500") });
 ```
 
 Uses Jest's [pretty-format](https://www.npmjs.com/package/pretty-format) package with some custom plugins.
-
 
 ## License
 

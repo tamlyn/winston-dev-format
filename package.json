@@ -2,7 +2,7 @@
   "name": "winston-dev-format",
   "version": "0.1.2",
   "description": "A pretty log formatter for Winston",
-  "main": "index.js",
+  "main": "src/format.js",
   "scripts": {
     "test": "jest"
   },
@@ -17,6 +17,7 @@
   "devDependencies": {
     "jest": "^25.2.3",
     "prettier": "^2.0.2",
+    "stacktrace-metadata": "^2.0.4",
     "winston": "^3.2.1"
   },
   "keywords": [
