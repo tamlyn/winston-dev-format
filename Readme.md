@@ -39,7 +39,7 @@ logger.warn("It is pitch black. You are likely to be eaten by a grue.");
 logger.error("Unexpected monkeys", { result: new Error("HTTP 500") });
 ```
 
-Uses Jest's [pretty-format](https://www.npmjs.com/package/pretty-format) package with some custom plugins.
+Uses Node's built in `util.format` to render values values.
 
 ## License
 

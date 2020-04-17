@@ -7,8 +7,6 @@ const readme = fs.readFileSync("./Readme.md", "utf8");
 const code = readme
   // extract the code snippet
   .replace(/^.*```js(.*)```.*$/s, "$1")
-  // make the stacktrace more screenshot-friendly
-  .replace(/(new Error\([^)]+\))/, 'require("stacktrace-metadata")($1)')
   // require local module
   .replace("winston-dev-format", ".");
 fs.writeFileSync(`./example.js`, code);

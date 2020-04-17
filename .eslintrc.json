@@ -3,6 +3,9 @@
   "parserOptions": {
     "ecmaVersion": 2020
   },
+  "rules": {
+    "no-control-regex": "off"
+  },
   "overrides": [
     {
       "files": ["*test.js"],
