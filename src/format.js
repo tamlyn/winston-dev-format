@@ -1,5 +1,9 @@
 const { MESSAGE } = require("triple-beam");
-const { formatWithOptions } = require("util");
+let { format, formatWithOptions } = require("util");
+
+if (!formatWithOptions) {
+  formatWithOptions = (options, ...args) => format(...args);
+}
 
 function DevFormat() {}
 
