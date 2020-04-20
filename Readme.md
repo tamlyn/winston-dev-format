@@ -39,7 +39,7 @@ logger.warn("It is pitch black. You are likely to be eaten by a grue.");
 logger.error("Unexpected monkeys", { result: new Error("HTTP 500") });
 ```
 
-Uses Node's built in `util.format` to render values values.
+Uses Node's built in `util.format` to render values.
 
 ## License
 
