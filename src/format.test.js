@@ -1,6 +1,7 @@
 const { MESSAGE } = require("triple-beam");
 const winston = require("winston");
 const Transport = require("winston-transport");
+const semver = require("semver");
 
 const format = require("./format");
 
@@ -26,19 +27,24 @@ describe("Winston dev format", () => {
     mockError.stack = "Error: Oh no\n    at Here\n    at There";
   });
 
-  it("logs with colours", () => {
-    logger.info("hello", { some: "data" });
-    expect(mockTransport.rawMsg).toMatchInlineSnapshot(`
-      "info: hello
-        some:           [32m'data'[39m"
-    `);
-  });
+  // before Node 10 we don't have formatWithOptions so no colours
+  if (semver.gte(process.version, "10.0.0")) {
+    it("logs with colours", () => {
+      logger.info("hello", { some: "data", and: 123 });
+      expect(mockTransport.rawMsg).toMatchInlineSnapshot(`
+        "info: hello
+          some:           [32m'data'[39m
+          and:            [33m123[39m"
+      `);
+    });
+  }
 
   describe("errors", () => {
     it("logs error as message param", () => {
       logger.info(mockError);
       expect(mockTransport.msg).toMatchInlineSnapshot(`"info: Oh no"`);
     });
+
     it("logs error as meta param", () => {
       logger.info("Problem", mockError);
       // there's a bug in Winston that causes the error message
@@ -49,6 +55,7 @@ describe("Winston dev format", () => {
           stack:          'Error: Oh no\\\\n    at Here\\\\n    at There'"
       `);
     });
+
     it("logs error as meta property", () => {
       logger.info("Problem", { error: mockError });
       expect(mockTransport.msg).toMatchInlineSnapshot(`
@@ -58,14 +65,33 @@ describe("Winston dev format", () => {
                               at There"
       `);
     });
+
     it("logs error as nested meta property", () => {
       logger.info("Problem", { result: { error: mockError } });
-      expect(mockTransport.msg).toMatchInlineSnapshot(`
-        "info: Problem
-          result:         { error: Error: Oh no
-                                 at Here
-                                 at There }"
-      `);
+
+      // different node versions can't agree on the indentation of nested errors
+      if (semver.lt(process.version, "10.0.0")) {
+        expect(mockTransport.msg).toMatchInlineSnapshot(`
+          "info: Problem
+            result:         { error: Error: Oh no
+                                at Here
+                                at There }"
+        `);
+      } else if (semver.lt(process.version, "12.0.0")) {
+        expect(mockTransport.msg).toMatchInlineSnapshot(`
+          "info: Problem
+            result:         { error: Error: Oh no
+                                   at Here
+                                   at There }"
+        `);
+      } else {
+        expect(mockTransport.msg).toMatchInlineSnapshot(`
+          "info: Problem
+            result:         { error: Error: Oh no
+                                  at Here
+                                  at There }"
+        `);
+      }
     });
   });
 
