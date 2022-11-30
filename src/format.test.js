@@ -49,7 +49,7 @@ describe("Winston dev format", () => {
       // see https://github.com/winstonjs/winston/issues/1660
       expect(mockTransport.msg).toMatchInlineSnapshot(`
         "info: ProblemOh no
-          stack:          'Error: Oh no\\\\n    at Here\\\\n    at There'"
+          stack:          'Error: Oh no\\n    at Here\\n    at There'"
       `);
     });
 
@@ -143,8 +143,8 @@ describe("Winston dev format", () => {
                             at Here
                             at There
         symbol:         Symbol(prince)
-        'multi\\\\nline':  { 'here\\\\ntoo': 'tab\\\\ttab' }
-        'escaped\\\\\\\\n':   null"
+        'multi\\nline':  { 'here\\ntoo': 'tab\\ttab' }
+        'escaped\\\\n':   null"
     `);
   });
 });
