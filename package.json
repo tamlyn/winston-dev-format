@@ -1,7 +1,8 @@
 {
   "name": "winston-dev-format",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A pretty log formatter for Winston",
+  "repository": "https://github.com/tamlyn/winston-dev-format",
   "main": "src/format.js",
   "scripts": {
     "test": "jest",
@@ -43,7 +44,7 @@
     "pretty"
   ],
   "engines": {
-    "node": ">=8.6"
+    "node": ">=14"
   },
   "author": "Tamlyn Rhodes",
   "license": "MIT"

@@ -27,17 +27,14 @@ describe("Winston dev format", () => {
     mockError.stack = "Error: Oh no\n    at Here\n    at There";
   });
 
-  // before Node 10 we don't have formatWithOptions so no colours
-  if (semver.gte(process.version, "10.0.0")) {
-    it("logs with colours", () => {
-      logger.info("hello", { some: "data", and: 123 });
-      expect(mockTransport.rawMsg).toMatchInlineSnapshot(`
+  it("logs with colours", () => {
+    logger.info("hello", { some: "data", and: 123 });
+    expect(mockTransport.rawMsg).toMatchInlineSnapshot(`
         "info: hello
           some:           [32m'data'[39m
           and:            [33m123[39m"
       `);
-    });
-  }
+  });
 
   describe("errors", () => {
     it("logs error as message param", () => {
@@ -70,26 +67,21 @@ describe("Winston dev format", () => {
       logger.info("Problem", { result: { error: mockError } });
 
       // different node versions can't agree on the indentation of nested errors
-      if (semver.lt(process.version, "10.0.0")) {
-        expect(mockTransport.msg).toMatchInlineSnapshot(`
-          "info: Problem
-            result:         { error: Error: Oh no
-                                at Here
-                                at There }"
-        `);
-      } else if (semver.lt(process.version, "12.0.0")) {
-        expect(mockTransport.msg).toMatchInlineSnapshot(`
-          "info: Problem
-            result:         { error: Error: Oh no
-                                   at Here
-                                   at There }"
-        `);
-      } else {
+      if (semver.lt(process.version, "16.0.0")) {
         expect(mockTransport.msg).toMatchInlineSnapshot(`
           "info: Problem
             result:         { error: Error: Oh no
                                   at Here
                                   at There }"
+        `);
+      } else {
+        expect(mockTransport.msg).toMatchInlineSnapshot(`
+          "info: Problem
+            result:         {
+                              error: Error: Oh no
+                                  at Here
+                                  at There
+                            }"
         `);
       }
     });
@@ -119,7 +111,7 @@ describe("Winston dev format", () => {
     logger.info("Message", { obj });
     expect(mockTransport.msg).toMatchInlineSnapshot(`
       "info: Message
-        obj:            { a: 'b', c: [Circular] }"
+        obj:            <ref *1> { a: 'b', c: [Circular *1] }"
     `);
   });
 
